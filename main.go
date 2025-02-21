@@ -1,19 +1,20 @@
 package main
 
 import (
+	infrastructure "demo/src/infrastructure"
 	"os"
-	infrastructure "demo/src/infrastructure/handlers"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
 
 func main() {
+
 	godotenv.Load()
 
 	router := gin.Default()
 
-	router.POST("/webhook", infrastructure.GithubWebhookHanlder)
+	infrastructure.Routes(router)
 
 	port := os.Getenv("PORT")
 
@@ -22,4 +23,5 @@ func main() {
 	}
 
 	router.Run(":" + port)
+
 }
